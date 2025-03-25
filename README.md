@@ -152,15 +152,13 @@ sudo usermod -a -G docker ubuntu
 # Log out and log back in
 ```
 
-4. Clone your repository and deploy using Docker:
+4. Clone repository and use Docker image to run:
 ```bash
 git clone https://github.com/yourusername/weather-classification.git
 cd weather-classification
 docker build -t weather-classifier .
 docker run -d -p 80:5000 weather-classifier
 ```
-
-5. Access your application at `http://your-instance-public-dns`
 
 ## Usage
 
