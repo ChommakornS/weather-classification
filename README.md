@@ -175,10 +175,6 @@ The model is trained on the [Weather Dataset](https://www.kaggle.com/datasets/je
 - Snow
 - Sandstorm
 
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
 ## Future Work
 
 Some potential improvements for future versions include:
