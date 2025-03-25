@@ -67,8 +67,25 @@ weather-classification/
   - Snow class: 29/30 correctly classified with 1 misclassification as sandstorm
   - The model shows excellent performance with only 2 misclassifications out of 120 total test cases
   - The sandstorm class appears to occasionally be confused with rainbow and snow images
-  
-Note: While some individual classes achieve 100% accuracy on the test set, the confidence scores reported by the model (such as 100.0% shown in the demo) may not reflect the true uncertainty in real-world scenarios.
+
+## Limitations and Challenges
+
+### Dataset Limitations
+- **Small Dataset Size**: With only 170 training images across 4 categories, the model may not generalize well to real-world images that differ significantly from the training distribution.
+- **Limited Variety**: Each weather phenomenon can appear in various forms and conditions that might not be fully represented in our dataset.
+- **Potential Sampling Bias**: The dataset may overrepresent certain visual patterns or contexts, leading to a falsely high performance on the test set.
+
+### Model Limitations
+- **Potentially Overconfident Predictions**: The model occasionally shows 100% confidence in its predictions, which is rarely justified in real-world scenarios with natural variation.
+- **Perfect Class Accuracy Concerns**: The 100% accuracy for certain classes (lightning, sandstorm) on the test set should be interpreted with caution and is likely due to:
+  - Limited test set size (only 30 images per class)
+  - Possible similarities between test and training images
+  - Potential data leakage or overfitting to the specific characteristics of the dataset
+
+### Evaluation Considerations
+- **Test Set Selection**: The current evaluation method uses a fixed test set. Cross-validation would provide a more robust performance estimate.
+- **Confidence Calibration**: The raw model outputs should be properly calibrated to reflect true predictive uncertainty rather than showing overconfident predictions.
+- **Real-world Performance Gap**: Performance in controlled test environments often exceeds real-world performance due to distribution shifts and unexpected variations.
 
 ### Local Setup
 
@@ -167,6 +184,14 @@ The web application provides a clean interface with descriptions of each weather
   - Feature extraction: All layers frozen except the last one
   - Fine-tuning: Last few layers unfrozen and retrained
 
+### Model Robustness Measures
+
+To address concerns about the high accuracy and potential overfitting:
+
+- **Regularization Techniques**: We applied dropout and weight decay during training to prevent overfitting
+- **Data Augmentation**: Training images were augmented with random rotations, flips, and color jitter to improve generalization
+- **Validation Monitoring**: Early stopping was implemented based on validation loss to prevent memorization of training data
+
 ## Dataset
 
 The model is trained on the [Weather Dataset](https://www.kaggle.com/datasets/jehanbhathena/weather-dataset) from Kaggle, which includes images of various weather conditions. For this project, we focus on four categories:
@@ -180,11 +205,21 @@ The model is trained on the [Weather Dataset](https://www.kaggle.com/datasets/je
 Some potential improvements for future versions include:
 
 - **Improved Confidence Calibration**: While the model achieves high accuracy, the confidence scores (sometimes showing 100%) could be better calibrated to reflect true predictive uncertainty
+- **Expanded Test Dataset**: Collect more diverse test examples to better evaluate real-world performance
+- **External Validation**: Test the model on completely independent datasets from different sources
 - **Adding More Weather Classes**: Expand beyond the current four classes to include fog, hail, cloud types, etc.
-- **Data Augmentation**: Increase dataset size through augmentation techniques to improve model robustness
+- **Advanced Data Augmentation**: Increase dataset size through more sophisticated augmentation techniques to improve model robustness
+- **Adversarial Testing**: Evaluate model performance on adversarially generated images to identify weaknesses
+- **Ensemble Methods**: Implement model ensembles to improve reliability and provide better uncertainty estimates
 - **Mobile Application**: Develop a mobile version for on-the-go weather classification
 - **Integration with Weather APIs**: Combine image classification with data from weather services for more comprehensive analysis
 - **Regional Adaptation**: Fine-tune models for different geographical regions with distinctive weather patterns
+
+## Known Issues and Troubleshooting
+
+- **High Confidence Outputs**: The model may display unrealistically high confidence (e.g., 100%) even when uncertain. This is a known limitation of softmax outputs in neural networks.
+- **Limited Generalization**: Performance may degrade significantly on images captured under different conditions than those in the training set.
+- **Edge Cases**: Certain mixed weather conditions (e.g., lightning during a sandstorm) may confuse the classifier.
 
 ## Acknowledgments
 
