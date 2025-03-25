@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Image Classifier</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Weather Image Classifier</h1>
+            <p>Upload an image to classify the weather condition</p>
+        </header>
+
+        <main>
+            <section class="upload-section">
+                <div class="upload-container" id="upload-container">
+                    <div class="upload-area" id="upload-area">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Drag & Drop your image here</p>
+                        <p>or</p>
+                        <label for="file-input" class="upload-button">Browse Files</label>
+                        <input type="file" id="file-input" accept="image/*" hidden>
+                    </div>
+                    <div class="preview-container" id="preview-container" style="display: none;">
+                        <div class="preview-image-wrapper">
+                            <img id="preview-image" src="#" alt="Preview">
+                        </div>
+                        <div class="preview-actions">
+                            <button id="change-image" class="btn-secondary">
+                                <i class="fas fa-undo-alt"></i> Change Image
+                            </button>
+                            <button id="submit-image" class="btn-primary">
+                                <i class="fas fa-cloud-upload-alt"></i> Classify Weather
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="info-section">
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-rainbow"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3>Rainbow</h3>
+                        <p>Optical phenomenon caused by reflection, refraction and dispersion of light in water droplets.</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3>Lightning</h3>
+                        <p>Naturally occurring electrostatic discharge during which two electrically charged regions temporarily equalize.</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-snowflake"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3>Snow</h3>
+                        <p>Precipitation in the form of ice crystals, mainly of intricately branched, hexagonal form.</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-wind"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3>Sandstorm</h3>
+                        <p>Meteorological phenomenon in which strong winds blow large amounts of sand, reducing visibility.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <form id="prediction-form" action="/predict" method="post" enctype="multipart/form-data" style="display: none;">
+            <input type="file" name="file" id="form-file-input">
+        </form>
+
+        <footer>
+            <p>&copy; 2025 Weather Classification System</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

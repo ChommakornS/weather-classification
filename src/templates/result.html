@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classification Result - Weather Image Classifier</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Weather Classification Result</h1>
+        </header>
+
+        <main>
+            <section class="result-section">
+                <div class="result-container">
+                    <div class="result-image">
+                        <!-- Fixed image path -->
+                        <img src="{{ url_for('static', filename=result.image_path) }}" alt="Uploaded Image" class="img-fluid">
+
+                    </div>
+                    <div class="result-details">
+                        <h2>Classification</h2>
+                        <div class="result-prediction">
+                            {% if result.prediction == 'rainbow' %}
+                                <i class="fas fa-rainbow result-icon"></i>
+                            {% elif result.prediction == 'lightning' %}
+                                <i class="fas fa-bolt result-icon"></i>
+                            {% elif result.prediction == 'snow' %}
+                                <i class="fas fa-snowflake result-icon"></i>
+                            {% elif result.prediction == 'sandstorm' %}
+                                <i class="fas fa-wind result-icon"></i>
+                            {% else %}
+                                <i class="fas fa-cloud result-icon"></i>
+                            {% endif %}
+                            <div class="prediction-details">
+                                <h3>{{ result.prediction | title }}</h3>
+                                <p class="confidence">Confidence: {{ result.confidence }}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="result-explanation">
+                            {% if result.prediction == 'rainbow' %}
+                                <p>A rainbow is an optical phenomenon caused by reflection, refraction and dispersion of light in water droplets resulting in a spectrum of light appearing in the sky.</p>
+                            {% elif result.prediction == 'lightning' %}
+                                <p>Lightning is a naturally occurring electrostatic discharge during which two electrically charged regions temporarily equalize themselves, causing the instantaneous release of energy.</p>
+                            {% elif result.prediction == 'snow' %}
+                                <p>Snow comprises individual ice crystals that grow while suspended in the atmosphere and then fall, accumulating on the ground where they undergo further changes.</p>
+                            {% elif result.prediction == 'sandstorm' %}
+                                <p>A sandstorm is a meteorological phenomenon common in arid and semi-arid regions where strong winds blow loose sand and dirt from a dry surface.</p>
+                            {% else %}
+                                <p>The image has been classified as a weather phenomenon.</p>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="result-actions">
+                            <a href="/" class="btn-primary">Classify Another Image</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 Weather Classification System</p>
+        </footer>
+    </div>
+</body>
+</html>
