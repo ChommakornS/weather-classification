@@ -1,6 +1,7 @@
 # Weather Image Classification System
 
-A complete end-to-end system for classifying weather images into different categories (rainbow, lightning, snow, sandstorm) using deep learning with PyTorch and ResNet34.
+A complete end-to-end system for classifying weather images into different categories (rainbow, lightning, snow, sandstorm) using deep learning with PyTorch and ResNet34. This project is deployed using Google Cloud Run, which provides serverless container deployment. The live application can be accessed at:
+[Link](https://weather-classification-655537561777.us-central1.run.app)
 
 ## Project Structure
 ```
@@ -159,6 +160,47 @@ cd weather-classification
 docker build -t weather-classifier .
 docker run -d -p 80:5000 weather-classifier
 ```
+
+## Cloud Deployment
+
+### Google Cloud Platform (GCP) Deployment
+
+
+#### Deployment Steps
+
+1. Set up Google Cloud SDK and authenticate:
+```bash
+gcloud auth login
+gcloud config set project your-project-id
+```
+
+2. Build and push the Docker image to Google Container Registry:
+```bash
+gcloud builds submit --tag gcr.io/your-project-id/weather-classifier
+```
+
+3. Deploy to Cloud Run:
+```bash
+gcloud run deploy weather-classification \
+  --image gcr.io/your-project-id/weather-classifier \
+  --platform managed \
+  --region us-central1 \
+  --allow-unauthenticated
+```
+
+4. CI/CD Pipeline with Cloud Build:
+   - Created a `cloudbuild.yaml` configuration file for automated deployments
+   - Set up triggers to automatically deploy on commits to the main branch
+   - Implemented testing steps before deployment to ensure application stability
+
+#### GCP Services Used
+
+- **Cloud Run**: Serverless container platform for the application
+- **Cloud Build**: CI/CD pipeline for automated testing and deployment
+- **Container Registry**: Storage for Docker images
+- **Cloud Storage**: Storage of model weights and static assets
+- **Cloud Logging**: Monitoring application performance and errors
+- **Cloud IAM**: Managing access and permissions
 
 ## Usage
 
