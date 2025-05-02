@@ -1,7 +1,7 @@
 # Weather Image Classification System
 
 A complete end-to-end system for classifying weather images into different categories (rainbow, lightning, snow, sandstorm) using deep learning with PyTorch and ResNet34. This project is deployed using Google Cloud Run, which provides serverless container deployment. The live application can be accessed at:
-[Link](https://weather-classification-655537561777.us-central1.run.app)
+[Link](https://weather-classification-655537561777.us-central1.run.app) (Already disabled the server)
 
 ## Project Structure
 ```
